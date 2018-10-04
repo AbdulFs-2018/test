@@ -31,7 +31,7 @@ class App extends Component {
         <p className="App-intro">
 
           <button onClick={this.setNewNumber}>INCREMENT</button>
-          <Content myNumber={this.state.data}></Content>
+          
         </p>
       </div>
     );
