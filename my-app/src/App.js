@@ -3,24 +3,17 @@ import logo from './logo.svg';
 import './App.css';
 import { NavbarFeatures } from './Nav.js';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux'
+import { addTodo } from './actions/actions'
+
+import AddTodo from './components/AddTodo.js'
+import TodoList from './components/TodoList.js'
 
 
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: 0
-    }
-    this.setNewNumber = this.setNewNumber.bind(this)
-  };
-
-
-  setNewNumber() {
-    this.setState({ data: this.state.data + 1 })
-  }
-
   render() {
+    const { dispatch, visibleTodos } = this.props
     return (
       <div className="App">
         <NavbarFeatures />
@@ -28,15 +21,21 @@ class App extends Component {
         <header className="App-header"></header>
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="App-title">Welcome to React</h1>
-        <p className="App-intro">
+        <p className="App-intro"> </p>
 
-          <button onClick={this.setNewNumber}>INCREMENT</button>
-          
-        </p>
+        <AddTodo onAddClick={text => dispatch(addTodo(text))} />
+        <TodoList todos={visibleTodos} />
+
       </div>
     );
   }
 }
 
+function select(state) {
+  return {
+     visibleTodos: state.todos
+  }
+}
 
-export default App;
+
+export default connect(select)(App);
